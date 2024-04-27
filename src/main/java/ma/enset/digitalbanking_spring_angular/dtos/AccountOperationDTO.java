@@ -1,6 +1,5 @@
-package ma.enset.digitalbanking_spring_angular.entities;
+package ma.enset.digitalbanking_spring_angular.dtos;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,18 +9,13 @@ import ma.enset.digitalbanking_spring_angular.entities.enums.OperationType;
 import java.util.Date;
 
 @Data
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AccountOperation {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class AccountOperationDTO {
     private Long id;
     private Date operationDate;
     private double amount;
-    @Enumerated(EnumType.STRING)
     private OperationType operationType;
-    @ManyToOne
-    private BankAccount bankAccount;
     private String description;
 }

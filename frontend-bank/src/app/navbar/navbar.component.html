@@ -1,0 +1,33 @@
+<mat-toolbar color="primary">
+  <span>DIGITAL BANK</span>
+  <span style="flex: auto"></span>
+  <button mat-button routerLink="/home">
+    <mat-icon>home</mat-icon>
+    Home</button>
+  <button mat-button [matMenuTriggerFor]="CusMenu">
+    <mat-icon>person</mat-icon>
+    <mat-icon iconPositionEnd>keyboard_arrow_down</mat-icon>
+    Customers
+  </button>
+  <mat-menu #CusMenu="matMenu">
+    <button mat-menu-item routerLink="/customers">Search Customers</button>
+    <button mat-menu-item routerLink="/new-customer">Create Customer</button>
+  </mat-menu>
+  <button mat-button [matMenuTriggerFor]="accountMenu">
+    <mat-icon>account_balance</mat-icon>
+    <mat-icon iconPositionEnd>keyboard_arrow_down</mat-icon>
+
+    Accounts
+  </button>
+  <mat-menu #accountMenu="matMenu">
+    <button mat-menu-item routerLink="/accounts/open">Open Account</button>
+    <button mat-menu-item routerLink="/accounts/manage">Manage Accounts</button>
+  </mat-menu>
+  <button mat-button>username</button>
+  <button mat-raised-button color="warn">Logout</button>
+</mat-toolbar>
+
+<div>
+  <router-outlet></router-outlet>
+</div>
+

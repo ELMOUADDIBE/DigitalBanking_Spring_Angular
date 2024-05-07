@@ -27,6 +27,6 @@ public class BankAccount { // if Table per class strategy, we should make this c
     private AccountStatus status;
     @ManyToOne
     private Customer customer;
-    @OneToMany(mappedBy = "bankAccount", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "bankAccount", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AccountOperation> accountOperations;
 }

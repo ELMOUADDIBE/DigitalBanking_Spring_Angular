@@ -1,0 +1,59 @@
+<div class="container mt-2">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Customers</mat-card-title>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-form-field appearance="fill" class="w-100 p-4">
+      <mat-label>Search Customers</mat-label>
+      <input matInput #inputField (keyup)="applyFilter(inputField.value)" placeholder="Type name, email...">
+      <button mat-icon-button matSuffix>
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+    <ng-container *ngIf="dataSource; else failureOrLoading">
+      <mat-card-content>
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" matSort class="w-100">
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+              <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+            </ng-container>
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+              <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+            </ng-container>
+            <!-- Email Column -->
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+              <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+            </ng-container>
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button color="primary" (click)="handleUpdateCustomer(element)" aria-label="Edit customer">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="handleDeleteCustomer(element)" aria-label="Delete customer">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons></mat-paginator>
+        </div>
+      </mat-card-content>
+    </ng-container>
+  </mat-card>
+  <ng-template #failureOrLoading>
+    <mat-card-content>
+      <p *ngIf="errorMessage">{{ errorMessage }}</p>
+      <mat-progress-spinner *ngIf="!errorMessage" mode="indeterminate"></mat-progress-spinner>
+    </mat-card-content>
+  </ng-template>
+</div>

@@ -16,7 +16,7 @@ public class Customer {
     private Long id;
     private String name;
     private String email;
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<BankAccount> bankAccounts;
 }

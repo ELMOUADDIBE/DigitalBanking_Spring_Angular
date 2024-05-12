@@ -1,12 +1,6 @@
-@import "bootstrap-icons/font/bootstrap-icons.css";
-@import "bootstrap/dist/css/bootstrap.min.css";
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
 
 html, body { height: 100%}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-
-.submit-large {
-  width: 100%;
-  padding: 10px;
-}
 

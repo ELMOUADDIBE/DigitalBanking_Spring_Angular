@@ -25,7 +25,7 @@ export class NewCustomerComponent implements OnInit{
     let customer: Customer = this.newCustomerFormGroup.value;
     this.customerService.saveCustomer(customer).subscribe({
       next: (data) => {
-        this.router.navigateByUrl('/customers');
+        this.router.navigateByUrl('/admin/customers');
         // Alert
         Swal.fire({
           title: 'Success!',

@@ -1,45 +1,44 @@
 <div class="container my-5">
   <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card shadow-sm">
-        <div class="card-header">
-          <h5 class="card-title">New Customer</h5>
+    <div class="col-lg-8 col-md-10">
+      <div class="card shadow-lg">
+        <div class="card-header bg-success text-white d-flex justify-content-center">
+          <h3 class="card-title text-center"><i class="bi bi-person-fill-add"></i> New Customer</h3>
         </div>
         <div class="card-body">
           <form (ngSubmit)="handleSaveCustomer()" [formGroup]="newCustomerFormGroup">
 
             <!-- Name Input -->
-            <div class="mb-3">
-              <label class="form-label" for="name">
-                Name
-              </label>
-              <input class="form-control" formControlName="name" id="name" placeholder="Zaid Khan"
-                     type="text">
-              <div *ngIf="newCustomerFormGroup.controls['name'].touched
-                           && newCustomerFormGroup.controls['name'].errors
-                           && newCustomerFormGroup.controls['name'].errors?.['required']" class="text-danger mt-2">
+            <div class="mb-4">
+              <label class="form-label" for="name">Name</label>
+              <input class="form-control" formControlName="name" id="name" placeholder="Zaid Khan" type="text">
+              <div *ngIf="newCustomerFormGroup.controls['name'].touched &&
+                          newCustomerFormGroup.controls['name'].errors &&
+                          newCustomerFormGroup.controls['name'].errors?.['required']" class="text-danger mt-2">
                 Name is required
               </div>
             </div>
 
             <!-- Email Input -->
-            <div class="mb-3">
-              <label class="form-label" for="email">
-                Email
-              </label>
-              <input class="form-control" formControlName="email" id="email" placeholder="zaid@enset.ma"
-                     type="email">
-              <div *ngIf="newCustomerFormGroup.controls['email'].touched
-                           && newCustomerFormGroup.controls['email'].errors
-                           && newCustomerFormGroup.controls['email'].errors?.['required']" class="text-danger mt-2">
+            <div class="mb-4">
+              <label class="form-label" for="email">Email</label>
+              <input class="form-control" formControlName="email" id="email" placeholder="zaid@enset.ma" type="email">
+              <div *ngIf="newCustomerFormGroup.controls['email'].touched &&
+                          newCustomerFormGroup.controls['email'].errors &&
+                          newCustomerFormGroup.controls['email'].errors?.['required']" class="text-danger mt-2">
                 Email is not valid
               </div>
             </div>
 
-            <!-- Submit Button -->
-            <button [disabled]="!newCustomerFormGroup.valid" class="btn btn-primary submit-large" type="submit">
-              Submit <i class="bi bi-send-fill"></i>
-            </button>
+            <div class="d-flex justify-content-around">
+              <!-- Submit Button -->
+              <button [disabled]="!newCustomerFormGroup.valid" class="btn btn-success" type="submit" style="width: 40%;">
+                <i class="bi bi-send-fill"></i> Submit
+              </button>
+              <button type="button" class="btn btn-secondary" style="width: 40%;" routerLink="/admin/customers">
+                <i class="bi bi-x-circle"></i> Cancel
+              </button>
+            </div>
           </form>
         </div>
       </div>

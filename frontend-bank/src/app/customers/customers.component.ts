@@ -85,7 +85,5 @@ export class CustomersComponent implements OnInit{
 
 
   handleUpdateCustomer(customer: Customer) {
-    this.router.navigate(['/edit-customer', customer.id]);
-  }
-
+    this.router.navigate(['/admin/edit-customer', customer.id]);  }
 }

@@ -7,6 +7,7 @@ import ma.enset.digitalbanking_spring_angular.dtos.CustomerDTO;
 import ma.enset.digitalbanking_spring_angular.entities.Customer;
 import ma.enset.digitalbanking_spring_angular.exception.CustomerNotFoundException;
 import ma.enset.digitalbanking_spring_angular.services.BankAccountService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,28 +18,35 @@ import java.util.List;
 @CrossOrigin("*")
 public class CustomerRestController {
     private BankAccountService bankAccountService;
+
     @GetMapping("/customers")
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
     public List<CustomerDTO> customers() {
         return bankAccountService.listCustomers();
     }
 
+
     @GetMapping("/customers/{id}")
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
     public CustomerDTO getCustomer(@PathVariable(name = "id") Long CustomerId) throws CustomerNotFoundException {
         return bankAccountService.getCustomer(CustomerId);
     }
 
     @PostMapping("/customers")
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customer) {
         return bankAccountService.saveCustomerDTO(customer);
     }
 
     @PutMapping("/customers/{id}")
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
     public CustomerDTO updateCustomer(@PathVariable Long id,@RequestBody CustomerDTO customerDTO) {
         customerDTO.setId(id);
         return bankAccountService.updateCustomer(customerDTO);
     }
 
     @DeleteMapping("/customers/{id}")
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
     public void deleteCustomer(@PathVariable Long id) throws CustomerNotFoundException {
         bankAccountService.deleteCustomer(id);
     }

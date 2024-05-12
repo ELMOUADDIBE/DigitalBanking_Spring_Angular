@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -16,7 +15,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withFetch} from "@angular/common/http";
 import {MatTableModule} from "@angular/material/table";
 import { NavbarComponent } from './navbar/navbar.component';
 import { AccountsComponent } from './accounts/accounts.component';
@@ -26,6 +25,14 @@ import { HomeComponent } from './home/home.component';
 import {MatProgressSpinner, MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { NewCustomerComponent } from './new-customer/new-customer.component';
 import { EditCustomerComponent } from './edit-customer/edit-customer.component';
+import { LoginComponent } from './login/login.component';
+import {AppHttpInterceptor} from "./interceptors/app-http.interceptor";
+import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProfilComponent } from './profil/profil.component';
+import {MatAccordion, MatExpansionModule} from "@angular/material/expansion";
+import { TemplateComponent } from './template/template.component';
+import {BaseChartDirective, provideCharts, withDefaultRegisterables} from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -36,6 +43,11 @@ import { EditCustomerComponent } from './edit-customer/edit-customer.component';
     HomeComponent,
     NewCustomerComponent,
     EditCustomerComponent,
+    LoginComponent,
+    NotAuthorizedComponent,
+    DashboardComponent,
+    ProfilComponent,
+    TemplateComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,10 +68,16 @@ import { EditCustomerComponent } from './edit-customer/edit-customer.component';
     MatPaginatorModule,
     MatSortModule,
     RouterModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatAccordion,
+    MatExpansionModule,
+    BaseChartDirective,
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    {provide : HTTP_INTERCEPTORS, useClass: AppHttpInterceptor, multi: true},
+    provideHttpClient(withFetch()),
+    provideCharts(withDefaultRegisterables()),
   ],
   bootstrap: [AppComponent]
 })

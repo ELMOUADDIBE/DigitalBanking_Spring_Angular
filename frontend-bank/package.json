@@ -22,9 +22,12 @@
     "@angular/router": "^17.3.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "chart.js": "^4.4.2",
     "jquery": "^3.7.1",
+    "jwt-decode": "^4.0.0",
+    "ng2-charts": "^6.0.1",
     "rxjs": "~7.8.0",
-    "sweetalert2": "^11.10.8",
+    "sweetalert2": "^11.6.13",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },

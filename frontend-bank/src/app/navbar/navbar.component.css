@@ -1,0 +1,33 @@
+.mat-toolbar {
+  position: relative;
+  z-index: 1000;
+}
+
+.sidebar {
+  position: fixed;
+  top: 64px;
+  width: 250px;
+  height: calc(100% - 64px);
+  overflow-y: auto;
+  background-color: #f0f0f0;
+}
+
+.mat-drawer-container {
+  transition: margin-left 0.3s;
+}
+
+.mat-expansion-panel {
+  border-bottom: 1px solid #ccc;
+}
+
+.mat-action-list button {
+  width: 100%;
+}
+
+.mat-icon {
+  margin-right: 10px;
+}
+
+.mat-drawer-content {
+  padding: 20px;
+}

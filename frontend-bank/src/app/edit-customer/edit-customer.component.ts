@@ -39,12 +39,12 @@ export class EditCustomerComponent implements OnInit {
         },
         error: (err) => {
           console.error('Failed to get customer:', err);
-          this.router.navigate(['/customers']);
+          this.router.navigate(['/admin/customers']);
         }
       });
     } else {
       console.error('Invalid customer ID');
-      this.router.navigate(['/customers']);
+      this.router.navigate(['/admin/customers']);
     }
   }
 
@@ -61,7 +61,7 @@ export class EditCustomerComponent implements OnInit {
             confirmButtonText: 'OK'
           });
 
-          this.router.navigate(['/customers']);
+          this.router.navigate(['/admin/customers']);
         },
         error: (error) => {
           console.error('Error updating customer:', error);
@@ -72,6 +72,6 @@ export class EditCustomerComponent implements OnInit {
   }
 
   cancelEdit(): void {
-    this.router.navigate(['/customers']);
+    this.router.navigate(['/admin/customers']);
   }
 }

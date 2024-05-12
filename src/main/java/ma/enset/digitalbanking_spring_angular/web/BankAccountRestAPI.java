@@ -21,7 +21,6 @@ public class BankAccountRestAPI {
     @GetMapping("/accounts/{id}")
     public BankAccountDTO getBankAccount(@PathVariable String id) throws BankAccountNotFoundException {
         return bankAccountService.getBankAccount(id);
-
     }
 
     @GetMapping("/accounts")

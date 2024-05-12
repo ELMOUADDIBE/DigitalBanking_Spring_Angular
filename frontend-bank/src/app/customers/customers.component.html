@@ -1,19 +1,20 @@
 <div class="container mt-2">
-  <mat-card>
+  <mat-card class="shadow-sm">
     <mat-card-header>
       <mat-card-title>Customers</mat-card-title>
     </mat-card-header>
     <mat-divider></mat-divider>
-    <mat-form-field appearance="fill" class="w-100 p-4">
+    <mat-form-field appearance="fill" class="w-100 px-4 py-2">
       <mat-label>Search Customers</mat-label>
       <input matInput #inputField (keyup)="applyFilter(inputField.value)" placeholder="Type name, email...">
       <button mat-icon-button matSuffix>
         <mat-icon>search</mat-icon>
       </button>
     </mat-form-field>
+    <!-- Table data -->
     <ng-container *ngIf="dataSource; else failureOrLoading">
       <mat-card-content>
-        <div class="mat-elevation-z8">
+        <div class="mat-elevation-z8 rounded-lg overflow-hidden">
           <table mat-table [dataSource]="dataSource" matSort class="w-100">
             <!-- ID Column -->
             <ng-container matColumnDef="id">

@@ -1,0 +1,48 @@
+<div class="container mt-5">
+  <div class="row">
+    <!-- Line Chart Card -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Account Balance Over Time</div>
+        <div class="card-body">
+          <canvas baseChart
+                  [datasets]="lineChartData.datasets"
+                  [labels]="lineChartData.labels"
+                  [options]="lineChartOptions"
+                  [type]="lineChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+    <!-- Bar Chart Card -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Transaction Volume by Type</div>
+        <div class="card-body">
+          <canvas baseChart
+                  [datasets]="barChartData.datasets"
+                  [labels]="barChartData.labels"
+                  [options]="barChartOptions"
+                  [type]="barChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <!-- Pie Chart Card -->
+    <div class="col-md-6 offset-md-3">
+      <div class="card">
+        <div class="card-header">Customer Segmentation</div>
+        <div class="card-body">
+          <canvas baseChart
+                  [data]="pieChartData"
+                  [labels]="pieChartData.labels"
+                  [type]="pieChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

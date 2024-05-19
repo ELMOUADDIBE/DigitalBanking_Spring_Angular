@@ -143,7 +143,7 @@ public class BankAccountServiceImpl implements BankAccountService {
     public BankAccountDTO getBankAccount(String accountId) throws BankAccountNotFoundException {
         BankAccount bankAccount = bankAccountRepository.findById(accountId).orElseThrow(() -> new BankAccountNotFoundException("Account not found"));
         if(bankAccount instanceof CurrentAccount) {
-            return bankAccountMapper.fromCurrentBankAccount((CurrentAccount) bankAccount);
+//            return bankAccountMapper.fromCurrentBankAccount((CurrentAccount) bankAccount);
         } else if(bankAccount instanceof SavingAccount) {
             return bankAccountMapper.fromSavingBankAccount((SavingAccount) bankAccount);
         }

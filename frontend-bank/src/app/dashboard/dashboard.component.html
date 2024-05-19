@@ -1,48 +1,73 @@
-<div class="container mt-5">
+<div class="container-fluid mt-4">
   <div class="row">
-    <!-- Line Chart Card -->
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">Account Balance Over Time</div>
+    <!-- Stylish Cards -->
+    <div class="col-md-4 mb-4">
+      <div class="card text-white bg-primary">
         <div class="card-body">
-          <canvas baseChart
-                  [datasets]="lineChartData.datasets"
-                  [labels]="lineChartData.labels"
-                  [options]="lineChartOptions"
-                  [type]="lineChartType">
-          </canvas>
+          <h5 class="card-title">Total Customers</h5>
+          <p class="card-text">{{ totalCustomers }}</p>
         </div>
       </div>
     </div>
-    <!-- Bar Chart Card -->
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">Transaction Volume by Type</div>
+    <div class="col-md-4 mb-4">
+      <div class="card text-white bg-success">
         <div class="card-body">
-          <canvas baseChart
-                  [datasets]="barChartData.datasets"
-                  [labels]="barChartData.labels"
-                  [options]="barChartOptions"
-                  [type]="barChartType">
-          </canvas>
+          <h5 class="card-title">Total Accounts</h5>
+          <p class="card-text">{{ totalAccounts }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card text-white bg-info">
+        <div class="card-body">
+          <h5 class="card-title">Total Balance</h5>
+          <p class="card-text">{{ totalBalance | currency }}</p>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="row mt-4">
-    <!-- Pie Chart Card -->
-    <div class="col-md-6 offset-md-3">
+  <div class="row">
+    <!-- Bar Chart -->
+    <div class="col-md-6 mb-4">
       <div class="card">
-        <div class="card-header">Customer Segmentation</div>
+        <div class="card-header">Accounts per Customer</div>
         <div class="card-body">
-          <canvas baseChart
-                  [data]="pieChartData"
-                  [labels]="pieChartData.labels"
-                  [type]="pieChartType">
-          </canvas>
+          <canvas id="barChart"></canvas>
         </div>
       </div>
     </div>
+
+    <!-- Doughnut Chart -->
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-header">Operation Types Ratio</div>
+        <div class="card-body">
+          <canvas id="doughnutChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pie Chart -->
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-header">Account Types Distribution</div>
+        <div class="card-body">
+          <canvas id="pieChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Line Chart -->
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-header">Balance Over Time</div>
+        <div class="card-body">
+          <canvas id="lineChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+
   </div>
 </div>

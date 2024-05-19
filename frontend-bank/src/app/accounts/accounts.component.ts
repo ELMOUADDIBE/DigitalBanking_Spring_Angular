@@ -32,7 +32,7 @@ export class AccountsComponent implements OnInit {
 
   handleSearchAccount() {
     let accountId : string =this.accountFormGroup.value.accountId;
-    this.accountObservable=this.accountService.getAccount(accountId,this.currentPage, this.pageSize).pipe(
+    this.accountObservable=this.accountService.getAccount(accountId, this.currentPage, this.pageSize).pipe(
       catchError(err => {
         this.errorMessage=err.message;
         return throwError(err);
@@ -75,7 +75,7 @@ export class AccountsComponent implements OnInit {
       });
     }
     else if(operationType=='TRANSFER'){
-      this.accountService.transfer(accountId,accountDestination, amount,description).subscribe({
+      this.accountService.transfer(accountId,accountDestination, amount).subscribe({
         next : (data)=>{
           alert("Success Transfer");
           this.operationFromGroup.reset();

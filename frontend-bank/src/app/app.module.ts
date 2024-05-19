@@ -32,7 +32,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfilComponent } from './profil/profil.component';
 import {MatAccordion, MatExpansionModule} from "@angular/material/expansion";
 import { TemplateComponent } from './template/template.component';
-import {BaseChartDirective, provideCharts, withDefaultRegisterables} from 'ng2-charts';
+
 
 @NgModule({
   declarations: [
@@ -71,13 +71,11 @@ import {BaseChartDirective, provideCharts, withDefaultRegisterables} from 'ng2-c
     MatProgressSpinnerModule,
     MatAccordion,
     MatExpansionModule,
-    BaseChartDirective,
   ],
   providers: [
     provideAnimationsAsync(),
     {provide : HTTP_INTERCEPTORS, useClass: AppHttpInterceptor, multi: true},
     provideHttpClient(withFetch()),
-    provideCharts(withDefaultRegisterables()),
   ],
   bootstrap: [AppComponent]
 })

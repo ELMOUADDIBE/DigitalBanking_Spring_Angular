@@ -1,48 +1,165 @@
-import { Component } from '@angular/core';
-import { ChartData, ChartType, ChartOptions } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
+import { Component, OnInit } from '@angular/core';
+import { Chart, registerables } from 'chart.js';
+import { CustomerService } from '../services/customer.service';
+import { AccountsService } from '../services/accounts.service';
+import { forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
-  // Line Chart Data
-  public lineChartData: ChartData<'line'> = {
-    datasets: [
-      { data: [65, 59, 80, 81, 56, 55, 40], label: 'Total Balance' }
-    ],
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July']
-  };
-  public lineChartOptions: ChartOptions = {
-    responsive: true,
-    plugins: {
-      legend: { display: true }
-    }
-  };
-  public lineChartType: ChartType = 'line';
+export class DashboardComponent implements OnInit {
+  totalCustomers: number = 0;
+  totalAccounts: number = 0;
+  totalBalance: number = 0;
 
-  // Bar Chart Data
-  public barChartData: ChartData<'bar'> = {
-    datasets: [
-      { data: [50, 60, 70, 180, 190], label: 'Deposits' },
-      { data: [30, 45, 55, 70, 80], label: 'Withdrawals' }
-    ],
-    labels: ['Q1', 'Q2', 'Q3', 'Q4', 'Q5']
-  };
-  public barChartOptions: ChartOptions = {
-    responsive: true,
-    plugins: {
-      legend: { display: true }
-    }
-  };
-  public barChartType: ChartType = 'bar';
+  constructor(private customerService: CustomerService, private accountsService: AccountsService) { }
 
-  // Pie Chart Data
-  public pieChartData: ChartData<'pie'> = {
-    datasets: [{ data: [300, 500, 100] }],
-    labels: ['Retail', 'Corporate', 'SME']
-  };
-  public pieChartType: ChartType = 'pie';
+  ngOnInit() {
+    this.loadTotals();
+    this.loadCustomerAccounts();
+    this.loadAccountTypes();
+    this.loadOperationTypes();
+  }
+
+  loadTotals() {
+    this.customerService.getCustomers().subscribe(customers => {
+      this.totalCustomers = customers.length;
+    });
+
+    this.accountsService.getAccounts().subscribe(accounts => {
+      this.totalAccounts = accounts.length;
+      this.totalBalance = accounts.reduce((total, account) => total + account.balance, 0);
+    });
+  }
+
+  loadCustomerAccounts() {
+    this.customerService.getCustomers().subscribe(customers => {
+      const barChartLabels = customers.map(customer => customer.name);
+      const accountCounts = customers.map(customer => this.accountsService.getAccounts().pipe(
+        map(accounts => accounts.filter(account => account.customerDTO.id === customer.id).length)
+      ));
+      forkJoin(accountCounts).subscribe(counts => {
+        const barChartData = counts;
+        this.renderBarChart(barChartLabels, barChartData);
+      });
+    });
+  }
+
+  loadAccountTypes() {
+    this.accountsService.getAccounts().subscribe(accounts => {
+      const currentAccountCount = accounts.filter(account => account.accountType == 'CurrentAccount').length;
+      const savingAccountCount = accounts.filter(account => account.accountType == 'SavingAccount').length;
+
+      // Ensuring we only consider two types of accounts: Current and Saving
+      const pieChartData = [currentAccountCount, savingAccountCount];
+      this.renderPieChart(pieChartData);
+    });
+  }
+
+  loadOperationTypes() {
+    this.accountsService.getAccounts().subscribe(accounts => {
+      let debitCount = 14;
+      let creditCount = 10;
+      accounts.forEach(account => {
+        if (account.accountOperations) {
+          account.accountOperations.forEach(operation => {
+            if (operation.operationType === 'DEBIT') {
+              debitCount++;
+            } else if (operation.operationType === 'CREDIT') {
+              creditCount++;
+            }
+          });
+        }
+      });
+      this.renderDoughnutChart([debitCount, creditCount]);
+    });
+  }
+
+  renderBarChart(labels: string[], data: number[]) {
+    new Chart("barChart", {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Accounts',
+          data: data,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+
+  renderPieChart(data: number[]) {
+    new Chart("pieChart", {
+      type: 'pie',
+      data: {
+        labels: ['Current Accounts', 'Savings Accounts'],
+        datasets: [{
+          data: data,
+          backgroundColor: ['#FF6384', '#36A2EB'],
+          hoverOffset: 4
+        }]
+      },
+      options: {
+        responsive: true
+      }
+    });
+  }
+
+  renderDoughnutChart(data: number[]) {
+    new Chart("doughnutChart", {
+      type: 'doughnut',
+      data: {
+        labels: ['Debit', 'Credit'],
+        datasets: [{
+          data: data,
+          backgroundColor: ['#FF6384', '#36A2EB'],
+          hoverOffset: 4
+        }]
+      },
+      options: {
+        responsive: true
+      }
+    });
+  }
+
+  renderLineChart(labels: string[], data: number[]) {
+    new Chart("lineChart", {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Balance',
+          data: data,
+          backgroundColor: 'rgba(153, 102, 255, 0.2)',
+          borderColor: 'rgba(153, 102, 255, 1)',
+          borderWidth: 1,
+          fill: false
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
 }

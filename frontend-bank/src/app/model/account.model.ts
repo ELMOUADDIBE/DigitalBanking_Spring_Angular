@@ -1,16 +1,32 @@
+import {Customer} from "./customer.model";
+
 export interface AccountDetails {
-  accountId:            string;
-  balance:              number;
-  currentPage:          number;
-  totalPages:           number;
-  pageSize:             number;
-  accountOperationDTOS: AccountOperation[];
+  customerDTO: Customer;
+  accountId: string
+  accountType: string
+  balance: number
+  currentPage: number
+  totalPages: number
+  pageSize: number
+  accountOperations: AccountOperation[]
 }
 
 export interface AccountOperation {
-  id:            number;
-  operationDate: Date;
-  amount:        number;
-  type:          string;
-  description:   string;
+  id: number
+  operationDate: string
+  amount: number
+  operationType: string
+  description: string
 }
+
+export interface Account {
+  type: string
+  id: string
+  balance: number
+  creationDate: string
+  status: string
+  customerDTO: Customer
+  overdraft?: number
+  rate?: number
+}
+

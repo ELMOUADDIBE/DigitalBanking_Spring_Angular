@@ -1,7 +1,6 @@
 package ma.enset.digitalbanking_spring_angular.services;
 
 import ma.enset.digitalbanking_spring_angular.dtos.*;
-import ma.enset.digitalbanking_spring_angular.entities.BankAccount;
 import ma.enset.digitalbanking_spring_angular.entities.Customer;
 import ma.enset.digitalbanking_spring_angular.exception.BalanceInsiffucientException;
 import ma.enset.digitalbanking_spring_angular.exception.BankAccountNotFoundException;

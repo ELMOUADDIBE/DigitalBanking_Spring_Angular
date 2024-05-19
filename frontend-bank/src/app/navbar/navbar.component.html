@@ -27,7 +27,7 @@
   <!-- Accounts Menu -->
   <mat-menu #accountMenu="matMenu">
     <button mat-menu-item routerLink="/admin/accounts">Search Accounts</button>
-    <button mat-menu-item routerLink="/admin/accounts">Manage Accounts</button>
+    <button mat-menu-item routerLink="/admin/accountsList">Manage Accounts</button>
   </mat-menu>
   <!-- Profile Menu -->
   <button *ngIf="authService.isAuth" [matMenuTriggerFor]="ProfilMenu" mat-button>
@@ -98,7 +98,7 @@
               <mat-icon>search</mat-icon>
               Search Accounts
             </button>
-            <button mat-list-item routerLink="/admin/accounts">
+            <button mat-list-item routerLink="/admin/accountsList">
               <mat-icon>edit</mat-icon>
               Manage Accounts
             </button>
